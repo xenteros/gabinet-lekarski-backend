@@ -1,28 +1,17 @@
-package pl.com.gurgul.model;
+package pl.com.gurgul.dto;
 
-import pl.com.gurgul.utils.UserRoles;
-
-import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by agurgul on 17.10.2016.
+ * Created by agurgul on 10.12.2016.
  */
-@Entity
-@Table(name = "User")
-public class User {
+public class UserTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
-
-    private String uuid;
 
     private String email;
 
@@ -34,22 +23,16 @@ public class User {
 
     private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String gender;
 
-    @Enumerated
-    private UserRoles userRole;
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
+    private String userRole;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getCreatedAt() {
@@ -108,19 +91,19 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public UserRoles getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRoles userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 }
