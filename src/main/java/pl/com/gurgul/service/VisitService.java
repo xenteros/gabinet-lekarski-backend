@@ -10,8 +10,7 @@ import pl.com.gurgul.model.Visit;
 import pl.com.gurgul.repository.UserRepository;
 import pl.com.gurgul.repository.VisitRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static pl.com.gurgul.exception.ErrorMessages.*;
 
@@ -56,6 +55,19 @@ public class VisitService {
 
     public List<Visit> findAll() {
         return (List)visitRepository.findAll();
+    }
+    public int countTodays() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date from = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        Date to = cal.getTime();
+        return visitRepository.findByDateBetween(from, to).size();
     }
 
     public List<Visit> findByUuid(String uuid) {

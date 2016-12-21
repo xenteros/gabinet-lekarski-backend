@@ -1,0 +1,51 @@
+<div class="container">
+
+    <div class="row">
+        <h2>Visits</h2>
+    </div>
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="panel-default">First name</div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="panel-default">Last name</div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="panel-default">Date</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-repeat="visit in visits">
+                <div class="panel-heading">
+                        <div role="button" data-toggle="collapse" data-parent="#accordion"
+                             data-target="#visit-{{$index}}">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="panel-default"> {{visit.user.firstName}} </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="panel-default">{{visit.user.lastName}}</div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="panel-default">{{visit.date | date:'yyyy-MM-dd HH:mm'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div id="visit-{{$index}}" class="panel-collapse collapse">
+                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

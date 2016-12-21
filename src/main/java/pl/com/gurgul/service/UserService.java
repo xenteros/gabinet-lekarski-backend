@@ -11,6 +11,7 @@ import pl.com.gurgul.security.PasswordEncoderImpl;
 import pl.com.gurgul.utils.UserRoles;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -42,6 +43,10 @@ public class UserService {
         newUser.setUuid(randomUUID().toString());
 
         return userRepository.save(newUser).getId();
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     private void validate() {

@@ -47,4 +47,8 @@ public class VisitController {
     public List<Visit> findByUuid(@PathVariable String uuid) {
         return visitService.findByUuid(uuid);
     }
+    @RequestMapping(value = "/count/today", method = GET)
+    public int countToday() {
+        return visitService.countTodays();
+    }
 }

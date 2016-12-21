@@ -11,6 +11,8 @@ import pl.com.gurgul.dto.UserTO;
 import pl.com.gurgul.model.User;
 import pl.com.gurgul.service.UserService;
 
+import java.util.List;
+
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 
@@ -18,7 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  * Created by agurgul on 10.12.2016.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
@@ -28,5 +30,10 @@ public class UserController {
     @RequestMapping(value = "/addUser", method = POST)
     public Long createUser(@RequestBody UserTO to) {
         return userService.createUser(to);
+    }
+
+    @RequestMapping(value = "/get/all", method = GET)
+    public List<User> findAll() {
+        return userService.findAll();
     }
 }
