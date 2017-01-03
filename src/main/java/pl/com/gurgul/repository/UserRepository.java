@@ -16,5 +16,6 @@ import java.util.List;
 @Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    User findByPesel(String pesel);
     User findByUuid(String uuid);
 }

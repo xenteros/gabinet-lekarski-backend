@@ -1,9 +1,7 @@
 <div class="container">
     <div class="col-md-6">
         <div class="row">
-            <div class="col-md-2">
-                <h2>Wizyty</h2>
-            </div>
+            <h2>Moje wizyty</h2>
         </div>
         <div class="row" ng-show="authenticated">
             <div class="panel-group" id="accordion">
@@ -21,6 +19,9 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="panel-default">Kiedy</div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="panel-default">Lekarz</div>
                             </div>
                         </div>
                     </div>
@@ -41,8 +42,11 @@
                                 <div class="col-md-2">
                                     <div class="panel-default">{{visit.user.lastName}}</div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="panel-default">{{visit.date | date:'yyyy-MM-dd HH:mm'}}</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="panel-default">{{visit.doctor.firstName + " " + visit.doctor.lastName}}</div>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +54,6 @@
                     <div id="visit-{{$index}}" class="panel-collapse collapse">
                         <div class="panel-body">
                             Podsumowanie wizyty: <br> {{ visit.notes }}<br>
-                            <button type="submit" ng-click="edit(visit)" class="btn btn-default">Edit</button>
                         </div>
                     </div>
                 </div>

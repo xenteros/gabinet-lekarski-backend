@@ -5,6 +5,7 @@ package pl.com.gurgul.exception;
  */
 public enum  ErrorMessages {
     MAY_NOT_BE_NULL("may not be null"),
+    NO_SUCH_USER("no such user"),
     NOT_ALLOWED("not allowed");
 
     private String message;

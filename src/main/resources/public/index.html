@@ -4,74 +4,127 @@
     <title>Gabinet Lekarski</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="css/office.css" rel="stylesheet">
     <style type="text/css">
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
 
-
     </style>
 </head>
 
-<body ng-app="office">
+<body ng-app="office" ng-init="authenticated=false;changePassword=false">
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div id="sidebar-wrapper">
+    <div id="sidebar-wrapper" ng-show="authenticated">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
                 <a href="#">
                     Gabinet lekarski
                 </a>
             </li>
-            <li>
+            <li ng-show="user.doctor">
                 <a href="#/visits">Wizyty
                     <span class="badge">{{todayVisits}}</span></a>
             </li>
-            <li>
-                <a href="#/register">Rejestracja</a>
+            <li ng-show="user.doctor">
+                <a href="#/register">Nowa wizyta</a>
+            </li>
+            <li ng-show="user.doctor">
+                <a href="#/newUser">Nowy pacjent</a>
+            </li>
+            <li ng-hide="user.doctor">
+                <a href="#/myVisits">Moje wizyty</a>
             </li>
             <li>
-                <a href="#">Overview</a>
+                <a href="#/profile">Profil</a>
             </li>
             <li>
-                <a href="#">Events</a>
+                <a href="#/changePassword">Zmiana hasła</a>
             </li>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#">Services</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
+            <li ng-controller="LoginController">
+                <a href="#" ng-click="logout()">Wyloguj się</a>
             </li>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
 
 
-    <div class="container">
-        <h1>Gabinet lekarski</h1>
-        <div class="container">
-            <div ng-view>
+    <div class="container pull-left">
+        <div class="row" ng-show="authenticated">
+            <a href="#menu-toggle" id="menu-toggle">
+                <button type="button" class="btn btn-default">
+                    <i class="glyphicon glyphicon-menu-left"></i>
+                </button>
 
+            </a>
+        </div>
+        <div class="container">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div ng-controller="LoginController">
+                    <form class="form-signin" ng-hide="authenticated || changePassword" ng-submit="login()">
+                        <br>
+                        <br>
+                        <h2 class="form-signin-heading">Please sign in</h2>
+                        <label for="pesel" class="sr-only">PESEL</label>
+                        <input type="number" id="pesel" class="form-control" placeholder="PESEL" required autofocus
+                               ng-model="credentials.user">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+                               ng-model="credentials.password">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login(credentials)">
+                            Sign in
+                        </button>
+                        <a href="" ng-click="resetPassword()">Zmień hasło</a>
+                    </form>
+                </div>
+                <div ng-controller="PasswordController">
+                    <form class="form-reset" ng-show="changePassword" ng-submit="reset(pesel)">
+                        <div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <label for="peselreset">PESEL</label>
+                            <input type="number" class="form-control" id="peselreset" ng-model="pesel">
+                        </div>
+                        <button type="submit" ng-click="reset(params)" class="btn btn-default" typw="submit">Reset
+                        </button>
+                        <div ng-show="error">{{ error }}</div>
+                    </form>
+                </div>
+                <div ng-view ng-show="authenticated">
+
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/angular.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/angular-route.min.js" type="text/javascript"></script>
 <script src="js/angular-resource.min.js" type="text/javascript"></script>
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/moment.min.js" type="text/javascript"></script>
+<script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="js/respond.min.js" type="text/javascript"></script>
 
-<script src="js/hello.js"></script>
 <script>
+
     $("#menu-toggle").click(function(e) {
+        console.log("toggle");
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+        $(this).find('i').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-left');
     });
-    </script>
+
+
+
+</script>
+
+<script src="js/hello.js"></script>
 </body>
 </html>

@@ -1,8 +1,10 @@
 package pl.com.gurgul;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import pl.com.gurgul.service.email.EmailService;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -16,8 +18,8 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 public class GabinetLekarskiApplication {
 
-	public static void main(String[] args) {
 
+	public static void main(String[] args) {
 		SpringApplication.run(GabinetLekarskiApplication.class, args);
 	}
 

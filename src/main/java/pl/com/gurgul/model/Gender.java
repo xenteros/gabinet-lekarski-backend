@@ -1,5 +1,8 @@
 package pl.com.gurgul.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by agurgul on 17.10.2016.
  */

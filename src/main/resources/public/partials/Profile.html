@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h2>Profil</h2><br>
+        </div>
+        <div class="row">
+            <form>
+                <div>
+                    <label for="firstName">Imię</label>
+                    <input type="text" class="form-control" disabled id="firstName" ng-model="profile.firstName">
+                </div>
+                <div>
+                    <label for="lastName">Nazwisko</label>
+                    <input type="text" class="form-control" disabled id="lastName" ng-model="profile.lastName">
+                </div>
+                <div>
+                    <label for="phoneNumber">Numer telefonu</label>
+                    <input type="text" class="form-control" id="phoneNumber" ng-model="profile.phoneNumber">
+                </div>
+                <div>
+                    <label for="notes">Adres e-mail</label>
+                    <input type="text" class="form-control" id="notes" ng-model="profile.email">
+                </div>
+                <button type="submit" ng-click="update()" class="btn btn-default">Zapisz zmiany</button>
+            </form>
+        </div>
+        <div class="row">
+            {{ success }}
+        </div>
+    </div>
+</div>
+

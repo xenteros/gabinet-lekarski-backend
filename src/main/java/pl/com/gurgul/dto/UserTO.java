@@ -1,5 +1,9 @@
 package pl.com.gurgul.dto;
 
+import pl.com.gurgul.model.User;
+import pl.com.gurgul.utils.UserRoles;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -7,48 +11,40 @@ import java.util.Date;
  */
 public class UserTO {
 
-    private Long id;
-
-    private Date createdAt;
-
-    private Date updatedAt;
-
+    @NotNull
     private String email;
 
     private String password;
 
+    @NotNull
     private String firstName;
 
+    @NotNull
     private String lastName;
 
+    @NotNull
     private String phoneNumber;
 
     private String gender;
 
-    private String userRole;
+    private String pesel;
 
-    public Long getId() {
-        return id;
+    private boolean isDoctor;
+
+    public boolean isDoctor() {
+        return isDoctor;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDoctor(boolean doctor) {
+        isDoctor = doctor;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public String getPesel() {
+        return pesel;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
     }
 
     public String getEmail() {
@@ -99,11 +95,15 @@ public class UserTO {
         this.gender = gender;
     }
 
-    public String getUserRole() {
-        return userRole;
+    public UserTO(User user) {
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.isDoctor = user.getUserRole().equals(UserRoles.ROLE_DOCTOR);
+        this.pesel = user.getPesel();
+        this.phoneNumber = user.getPhoneNumber();
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
+    public UserTO() {
     }
 }

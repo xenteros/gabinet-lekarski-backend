@@ -29,6 +29,18 @@ public class Visit {
     @Column
     private Boolean completed;
 
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private User doctor;
+
+    public User getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(User doctor) {
+        this.doctor = doctor;
+    }
+
     public Visit() {
     }
 

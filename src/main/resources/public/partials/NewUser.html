@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h2>Nowy pacjent</h2>
+        </div>
+        <div class="row">
+            <form>
+                <div>
+                    <label for="firstName">Imię</label>
+                    <input type="text" class="form-control" id="firstName" ng-model="user.firstName">
+                </div>
+                <div>
+                    <label for="lastName">Nazwisko</label>
+                    <input type="text" class="form-control" id="lastName" ng-model="user.lastName">
+                </div>
+                <div>
+                    <label for="pesel">PESEL</label>
+                    <input type="text" class="form-control" id="pesel" ng-model="user.pesel">
+                </div>
+                <div>
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" id="email" ng-model="user.email">
+                </div>
+                <div>
+                    <label for="phoneNumber">Numer telefonu</label>
+                    <input type="text" class="form-control" id="phoneNumber" ng-model="user.phoneNumber">
+                </div>
+                <div>
+                    <label>Płeć</label><br>
+                    <label><input type="radio" name="SGender" ng-change="RadioChange('MALE')" ng-model="user.gender"
+                                  value="MALE">Mężczyzna</label>
+                    <label><input type="radio" name="SGender" ng-change="RadioChange('FEMALE')" ng-model="user.gender"
+                                  value="FEMALE">Kobieta</label>
+                </div>
+                <button type="submit" ng-click="newUser(user)" class="btn btn-default">Dodaj</button>
+            </form>
+        </div>
+        <div class="row">
+            {{ success }}
+        </div>
+    </div>
+
+</div>
+

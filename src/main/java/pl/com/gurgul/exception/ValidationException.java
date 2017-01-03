@@ -1,5 +1,8 @@
 package pl.com.gurgul.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import java.util.List;
 
 /**
@@ -7,10 +10,18 @@ import java.util.List;
  */
 public class ValidationException extends RuntimeException {
 
-    List<ValidationError> errors;
+    private List<ValidationError> errors;
 
     public ValidationException(List<ValidationError> errors) {
-        super("ValidationException");
+        super();
+        this.errors = errors;
+    }
+
+    public List<ValidationError> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<ValidationError> errors) {
         this.errors = errors;
     }
 }
