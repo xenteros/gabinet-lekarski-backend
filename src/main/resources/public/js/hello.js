@@ -116,6 +116,7 @@ officaApp.controller('ProfileController', function($scope, $rootScope, $http) {
 
 officaApp.controller('LoginController', function($scope, $rootScope, $location, $httpParamSerializer, $http){
     $scope.credentials = {};
+    $scope.loginFailed = false;
     $scope.resetPassword = function() {
         $rootScope.changePassword = true;
     };
@@ -134,8 +135,9 @@ officaApp.controller('LoginController', function($scope, $rootScope, $location, 
                 $rootScope.authenticated = true;
                 $rootScope.user = response.data;
                 $location.path('/');
+                $scope.loginFailed = false;
             }, function errorCallback(response) {
-
+                $scope.loginFailed = true;
             });
         $scope.credentials = {};
     };
