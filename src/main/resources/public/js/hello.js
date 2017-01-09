@@ -12,6 +12,11 @@ officaApp.config(function ($routeProvider) {
                 controller: 'AllVisitsController',
                 templateUrl: '/partials/ViewAllVisits.html'
             })
+        .when('/manage',
+            {
+                controller: 'ManageController',
+                templateUrl: '/partials/Manage.html'
+            })
         .when('/register',
             {
                 controller: 'RegistrationController',
@@ -231,6 +236,16 @@ officaApp.controller('AllVisitsController', function($scope, $window, $http, $ro
     };
     $scope.report = function() {
         $window.open("/api/report/myVisits?from="+$scope.transfer.from.getTime()+"&to="+$scope.transfer.to.getTime());
+    };
+
+});
+
+officaApp.controller('ManageController', function($scope, $window, $http, $rootScope, visitService, $location) {
+    $scope.transfer = {};
+    $scope.error = false;
+
+    $scope.report = function() {
+        $window.open("/api/report/allVisits?from="+$scope.transfer.from.getTime()+"&to="+$scope.transfer.to.getTime());
     };
 
 });

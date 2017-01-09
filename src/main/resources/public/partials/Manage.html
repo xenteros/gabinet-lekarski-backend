@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="col-md-6">
+        <div class="row">
+            <h2>Statystyki</h2><br>
+            <div class="alert alert-warning">
+                Pliki mogą zawierać dane wrażliwe.
+            </div>
+
+        </div>
+        <div class="row">
+            <h4>Raport z całego gabinetu</h4>
+                <form>
+                    <div class="col-md-5">
+                        <input type="datetime-local" class="form-control" id="from" ng-model="transfer.from">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="datetime-local" class="form-control" id="to" ng-model="transfer.to">
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" ng-click="report()" class="btn btn-primary">Raport</button>
+                    </div>
+                </form>
+        </div>
+        <div class="row">
+            {{ success }}
+        </div>
+    </div>
+</div>
+
