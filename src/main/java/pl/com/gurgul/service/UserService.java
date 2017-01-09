@@ -65,6 +65,7 @@ public class UserService {
         newUser.setUserRole(UserRoles.ROLE_USER);
         newUser.setUuid(randomUUID().toString());
         newUser.setPesel(to.getPesel());
+        newUser.setCanRegister(true);
 
         String password = RandomStringUtils.randomAlphanumeric(12);
         newUser.setPassword(passwordEncoder.encode(password));
@@ -92,6 +93,10 @@ public class UserService {
         }
         return new UserTO(userRepository.save(loggedUser));
 
+    }
+
+    public List<User> doctors() {
+        return userRepository.findByUserRole(UserRoles.ROLE_DOCTOR);
     }
 
     public void changePassword(PasswordTO to) {

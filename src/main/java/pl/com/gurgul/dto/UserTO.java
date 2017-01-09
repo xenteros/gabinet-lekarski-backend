@@ -31,6 +31,16 @@ public class UserTO {
 
     private boolean isDoctor;
 
+    private boolean canRegister;
+
+    public boolean isCanRegister() {
+        return canRegister;
+    }
+
+    public void setCanRegister(boolean canRegister) {
+        this.canRegister = canRegister;
+    }
+
     public boolean isDoctor() {
         return isDoctor;
     }

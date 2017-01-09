@@ -231,16 +231,6 @@ officaApp.controller('AllVisitsController', function($scope, $window, $http, $ro
     };
     $scope.report = function() {
         $window.open("/api/report/myVisits?from="+$scope.transfer.from.getTime()+"&to="+$scope.transfer.to.getTime());
-//        $http
-//            .get("/api/report/myVisits?from="+$scope.transfer.from.getTime()+"&to="+$scope.transfer.to.getTime())
-//            .success(function(response) {
-//                $location.path('/visits');
-//                $scope.error = false;
-//            })
-//            .error(function(err) {
-//                $scope.error = true;
-//            })
-
     };
 
 });

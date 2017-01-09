@@ -9,6 +9,7 @@ import pl.com.gurgul.dto.VisitTO;
 import pl.com.gurgul.exception.ErrorMessages;
 import pl.com.gurgul.exception.ValidationError;
 import pl.com.gurgul.exception.ValidationException;
+import pl.com.gurgul.model.User;
 import pl.com.gurgul.model.Visit;
 import pl.com.gurgul.repository.UserRepository;
 import pl.com.gurgul.repository.VisitRepository;
@@ -32,6 +33,11 @@ public class VisitService {
     @Autowired
     UserRepository userRepository;
 
+
+    public List<Visit> findVisitsByDoctor(User doctor) {
+        return visitRepository.findByDoctorUuidOrderByDateDesc(doctor.getUuid());
+    }
+
     public Visit createVisit (VisitTO to) {
         LOG.info("Trying to create a new visit.");
         validate(to);
@@ -53,6 +59,11 @@ public class VisitService {
         }
         Visit visit = visitRepository.findOne(to.getId());
         visit.setNotes(to.getNotes());
+
+        if (!visit.getCompleted() && to.getCompleted()) {
+            visit.setCost(visit.getDoctor().getSalary());
+        }
+
         visit.setCompleted(to.getCompleted());
         return visitRepository.save(visit);
     }

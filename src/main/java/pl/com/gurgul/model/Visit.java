@@ -29,9 +29,20 @@ public class Visit {
     @Column
     private Boolean completed;
 
+    @Column
+    private Long cost;
+
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private User doctor;
+
+    public Long getCost() {
+        return cost;
+    }
+
+    public void setCost(Long cost) {
+        this.cost = cost;
+    }
 
     public User getDoctor() {
         return doctor;

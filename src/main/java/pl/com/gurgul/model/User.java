@@ -40,11 +40,23 @@ public class User implements UserDetails {
 
     private String phoneNumber;
 
+    private Boolean canRegister;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Enumerated
     private UserRoles userRole;
+
+    private Long salary;
+
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
+    }
 
     public String getUuid() {
         return uuid;
@@ -80,6 +92,14 @@ public class User implements UserDetails {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boolean getCanRegister() {
+        return canRegister;
+    }
+
+    public void setCanRegister(Boolean canRegister) {
+        this.canRegister = canRegister;
     }
 
     public String getEmail() {

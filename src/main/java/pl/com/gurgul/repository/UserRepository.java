@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.gurgul.model.User;
+import pl.com.gurgul.utils.UserRoles;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByPesel(String pesel);
     User findByUuid(String uuid);
+    List<User> findByUserRole(UserRoles role);
 }

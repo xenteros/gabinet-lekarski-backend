@@ -27,9 +27,21 @@ public class RaportController {
     @RequestMapping(value = "/myVisits", method = RequestMethod.GET)
     public void myVisitsReport(HttpServletResponse response, @RequestParam Long from, @RequestParam Long to) {
 
-        //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-//        MyVisitsReportRequestTO to = new MyVisitsReportRequestTO(null, new Date());
         HSSFWorkbook workbook = excelService.myVisits(new Date(from), new Date(to));
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        String fileName = excelService.myVisitsName(new Date(from), new Date(to)) + ".xls";
+        response.setHeader("Content-disposition", format("attachment; filename=%s", fileName));
+        try {
+            workbook.write(response.getOutputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @RequestMapping(value = "/allVisits", method = RequestMethod.GET)
+    public void allyVisitsReport(HttpServletResponse response, @RequestParam Long from, @RequestParam Long to) {
+
+        HSSFWorkbook workbook = excelService.allVisits(new Date(from), new Date(to));
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         String fileName = excelService.myVisitsName(new Date(from), new Date(to)) + ".xls";
         response.setHeader("Content-disposition", format("attachment; filename=%s", fileName));
