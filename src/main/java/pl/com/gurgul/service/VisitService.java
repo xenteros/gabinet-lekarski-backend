@@ -91,6 +91,13 @@ public class VisitService {
         return visitRepository.findByDoctorUuidAndDateBetween(LoggedUserUtils.getLoggedUser().getUuid(), from, to).size();
     }
 
+    public List<Visit> findVisitsBetween(Date from, Date to) {
+        if (from == null) {
+            return visitRepository.findByDoctorUuidAndDateBefore(LoggedUserUtils.getLoggedUser().getUuid(), to);
+        }
+        return visitRepository.findByDoctorUuidAndDateBetween(LoggedUserUtils.getLoggedUser().getUuid(), from, to);
+    }
+
     public List<Visit> findByUuid(String uuid) {
         return visitRepository.findByUserUuid(uuid);
     }

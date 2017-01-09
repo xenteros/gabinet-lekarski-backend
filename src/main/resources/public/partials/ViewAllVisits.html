@@ -6,6 +6,22 @@
             </div>
         </div>
         <div class="row" ng-show="authenticated">
+            <div class="alert alert-danger" ng-show="error">
+                Błędna data.
+            </div>
+            <div class="row">
+                <form>
+                    <div class="col-md-5">
+                        <input type="datetime-local" class="form-control" id="from" ng-model="transfer.from">
+                    </div>
+                    <div class="col-md-5">
+                       <input type="datetime-local" class="form-control" id="to" ng-model="transfer.to">
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" ng-click="report()" class="btn btn-primary">Raport</button>
+                    </div>
+                </form>
+            </div>
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">

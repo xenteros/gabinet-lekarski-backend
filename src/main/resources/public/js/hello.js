@@ -209,7 +209,9 @@ officaApp.controller('NewUserController', function($scope, $http, $rootScope) {
 
 })
 
-officaApp.controller('AllVisitsController', function($scope, $http, $rootScope, visitService, $location) {
+officaApp.controller('AllVisitsController', function($scope, $window, $http, $rootScope, visitService, $location) {
+    $scope.transfer = {};
+    $scope.error = false;
     $http
         .get('/api/visit/get/all')
         .then(function(response) {
@@ -226,6 +228,19 @@ officaApp.controller('AllVisitsController', function($scope, $http, $rootScope, 
     $scope.edit = function(visit) {
         visitService.addVisit(visit);
         $location.path('/updateVisit');
+    };
+    $scope.report = function() {
+        $window.open("/api/report/myVisits?from="+$scope.transfer.from.getTime()+"&to="+$scope.transfer.to.getTime());
+//        $http
+//            .get("/api/report/myVisits?from="+$scope.transfer.from.getTime()+"&to="+$scope.transfer.to.getTime())
+//            .success(function(response) {
+//                $location.path('/visits');
+//                $scope.error = false;
+//            })
+//            .error(function(err) {
+//                $scope.error = true;
+//            })
+
     };
 
 });
