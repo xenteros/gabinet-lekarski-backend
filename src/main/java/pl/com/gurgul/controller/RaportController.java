@@ -24,6 +24,7 @@ public class RaportController {
     @Autowired
     ExcelService excelService;
 
+    @PreAuthorize("hasAuthority(T(pl.com.gurgul.utils.UserRoles).ROLE_DOCTOR)")
     @RequestMapping(value = "/myVisits", method = RequestMethod.GET)
     public void myVisitsReport(HttpServletResponse response, @RequestParam Long from, @RequestParam Long to) {
 
@@ -38,6 +39,7 @@ public class RaportController {
         }
     }
 
+    @PreAuthorize("hasAuthority(T(pl.com.gurgul.utils.UserRoles).ROLE_DOCTOR)")
     @RequestMapping(value = "/allVisits", method = RequestMethod.GET)
     public void allyVisitsReport(HttpServletResponse response, @RequestParam Long from, @RequestParam Long to) {
 
