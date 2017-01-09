@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import pl.com.gurgul.service.UserService;
 import pl.com.gurgul.service.email.EmailService;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
@@ -24,6 +25,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 public class GabinetLekarskiApplication {
 
+
 	@Bean
 	@Primary
 	@ConfigurationProperties(prefix = "spring.datasource")
@@ -34,6 +36,7 @@ public class GabinetLekarskiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GabinetLekarskiApplication.class, args);
+
 	}
 
 	@Bean
