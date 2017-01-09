@@ -182,7 +182,7 @@ officaApp.controller('UpdateVisitController', function($scope, $http, visitServi
                 visitService.addVisit({});
             })
             .error(function(err) {
-                $scope.success = "error";
+                $scope.success = "Wystąpił niespodziewany błąd.";
             });
     };
 });
@@ -198,7 +198,7 @@ officaApp.controller('NewUserController', function($scope, $http, $rootScope) {
         $http
             .post('/api/users/addUser', user)
             .success(function(response) {
-                $scope.success = "created";
+                $scope.success = "Użytkownik został poprawnie stworzony.";
             })
             .error(function(err) {
                 $scope.success = err.message;
@@ -255,7 +255,7 @@ officaApp.controller('RegistrationController', function($scope, $http, $rootScop
                 $location.path('/visits');
             })
             .error(function(err) {
-                $scope.success = "error";
+                $scope.success = "Wystąpił niespodziewany błąd";
             })
     }
     $http
