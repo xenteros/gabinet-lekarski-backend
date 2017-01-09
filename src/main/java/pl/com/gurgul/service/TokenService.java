@@ -49,7 +49,7 @@ public class TokenService {
         userRepository.save(user);
         emailService.sendPlainText(user.getEmail(), "Witamy w systemie Gabinet Lekarski", user.getFirstName() + " " + user.getLastName() + ", " +
                 (user.getGender().equals(Gender.FEMALE) ? "Pani " : "Pana ") +
-                "konto zostało utworzone. \n Aktualne hasło to: " + password);
+                "hasło to: " + password);
         tokenRepository.delete(t);
     }
 
