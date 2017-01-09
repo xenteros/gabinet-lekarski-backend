@@ -74,7 +74,7 @@ public class TokenService {
         }
         token = tokenRepository.save(token);
         emailService.sendPlainText(user.getEmail(), "Zmiana hasła",
-                "Aby zmienić hasło wejdź na adres: http://localhost:8090/password/change/" + token.getValue());
+                "Aby zmienić hasło wejdź na adres: https://gabinetlekarski.herokuapp.com/password/change/" + token.getValue());
 
     }
 

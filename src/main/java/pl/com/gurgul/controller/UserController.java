@@ -56,7 +56,7 @@ public class UserController {
      *  Metoda zwraca id utworzonego pacjenta.
      */
     @ApiOperation(value = "addUser", nickname = "addUser")
-//    @PreAuthorize("hasAuthority(T(pl.com.gurgul.utils.UserRoles).ROLE_DOCTOR)")
+    @PreAuthorize("hasAuthority(T(pl.com.gurgul.utils.UserRoles).ROLE_DOCTOR)")
     @RequestMapping(value = "/addUser", method = POST)
     public Long createUser(@RequestBody UserTO to) {
         LOG.info("Received request to create new user.");
