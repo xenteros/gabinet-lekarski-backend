@@ -28,6 +28,10 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 /**
  * Created by agurgul on 10.12.2016.
  */
+/**
+ * @Service - anotacja wskazuje na to, że jest to komponent, który należy
+ *                zainicjalizować przy uruchamianiu aplikacji.
+ */
 @Service
 public class UserService {
 
@@ -42,6 +46,10 @@ public class UserService {
     @Autowired
     EmailService emailService;
 
+    /**
+     *  Metoda zwraca id utworzonego użytkownika. Za walidację przekazanego
+     *  obiektu odpowiada metoda validate.
+     */
     public Long createUser(UserTO to) {
         LOG.info("Trying to create new user.");
         User newUser = new User();
@@ -61,8 +69,9 @@ public class UserService {
         String password = RandomStringUtils.randomAlphanumeric(12);
         newUser.setPassword(passwordEncoder.encode(password));
         User user = userRepository.save(newUser);
-        emailService.sendPlainText(user.getEmail(), "Witamy w systemie Gabinet Lekarski", user.getFirstName() + " " + user.getLastName() + ", " +
-                        (user.getGender().equals(Gender.FEMALE) ? "Pani " : "Pana ") +
+        emailService.sendPlainText(user.getEmail(), "Witamy w systemie Gabinet Lekarski",
+                user.getFirstName() + " " + user.getLastName() + ", " +
+                (user.getGender().equals(Gender.FEMALE) ? "Pani " : "Pana ") +
                 "konto zostało utworzone. \n Aktualne hasło to: " + password);
         return user.getId();
     }

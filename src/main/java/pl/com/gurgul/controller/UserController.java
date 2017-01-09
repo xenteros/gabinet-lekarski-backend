@@ -27,6 +27,15 @@ import static pl.com.gurgul.utils.LoggedUserUtils.*;
 /**
  * Created by agurgul on 10.12.2016.
  */
+
+/**
+ * @RestController - anotacja wskazuje na to, że jest to komponent, który należy
+ *                   zainicjalizować przy uruchamianiu aplikacji. Ponadto, zwracane
+ *                   przez metody obiekty, będą umieszczane w HttpResponse#Body
+ *
+ * @RequestMapping - anotacja, która rozszerza wszystkie mappingi metod o prefix
+ *                   /api/users
+ */
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -36,6 +45,16 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    /**
+     *  @PreAuthorize   - anotacja, która wymusza na zalogowanym użytkowniku
+     *                    posiadanie konkretnej roli w systemie. W tym przypadku ROLE_DOCTOR
+     *  @RequestMapping - anotacja, która zawęża ostatecznie klasę zapytań, które
+     *                    zostaną przekierowane do tej metody. Będą to zapytania pod
+     *                    adresem /api/users/addUser, z metodą POST
+     *  @RequestBody    - Body zapytania zostanie przez Spring zmapowane do obiektu klasy
+     *                    UserTO.
+     *  Metoda zwraca id utworzonego pacjenta.
+     */
     @ApiOperation(value = "addUser", nickname = "addUser")
     @PreAuthorize("hasAuthority(T(pl.com.gurgul.utils.UserRoles).ROLE_DOCTOR)")
     @RequestMapping(value = "/addUser", method = POST)
@@ -45,18 +64,40 @@ public class UserController {
     }
 
 
+    /**
+     *  @PreAuthorize   - anotacja, która wymusza na zalogowanym użytkowniku
+     *                    posiadanie konkretnej roli w systemie. W tym przypadku ROLE_DOCTOR
+     *  @RequestMapping - anotacja, która zawęża ostatecznie klasę zapytań, które
+     *                    zostaną przekierowane do tej metody. Będą to zapytania pod
+     *                    adresem /api/users/get/all, z metodą GET
+     *  Metoda zwraca listę wszystkich użytkowników.
+     */
     @PreAuthorize("hasAuthority(T(pl.com.gurgul.utils.UserRoles).ROLE_DOCTOR)")
     @RequestMapping(value = "/get/all", method = GET)
     public List<User> findAll() {
         return userService.findAll();
     }
 
+    /**
+     *  @RequestMapping - anotacja, która zawęża ostatecznie klasę zapytań, które
+     *                    zostaną przekierowane do tej metody. Będą to zapytania pod
+     *                    adresem /api/users/me, z metodą GET
+     *
+     *  Metoda zwraca informacje o aktualnie zalogowanym użytkowniku.
+     */
     @RequestMapping(value = "/me", method = GET)
     public UserTO me() {
         LOG.info("Received request for logged user details.");
         return userService.me();
     }
 
+    /**
+     *  @RequestMapping - anotacja, która zawęża ostatecznie klasę zapytań, które
+     *                    zostaną przekierowane do tej metody. Będą to zapytania pod
+     *                    adresem /api/users/update/me, z metodą PUT
+     *
+     *  Metoda zwraca zaktualizowane informacje o aktualnie zalogowanym użytkowniku.
+     */
     @RequestMapping(value = "/update/me", method = PUT)
     public UserTO update(@RequestBody @Valid UserTO to) {
         LOG.info("Received request to update user details.");

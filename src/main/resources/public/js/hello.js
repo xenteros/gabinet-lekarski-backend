@@ -155,12 +155,13 @@ officaApp.controller('LoginController', function($scope, $rootScope, $location, 
 
 officaApp.controller('PasswordController', function($scope, $rootScope, $http){
     $scope.pesel = "";
-    $scope.reset = function(pesel) {
+    $scope.reset = function() {
         $http
-            .get('/password/forgotten/'+pesel)
+            .get('/password/forgotten/'+$scope.pesel)
             .success(function(response) {
                 $rootScope.changePassword = false;
                 $scope.error = "";
+                $scope.pesel = "";
             })
             .error(function(err) {
                 $scope.error = err.message;

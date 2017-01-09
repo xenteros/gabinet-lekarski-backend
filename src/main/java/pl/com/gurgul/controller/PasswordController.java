@@ -20,7 +20,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  * Created by agurgul on 02.01.2017.
  */
 @Controller
-@RequestMapping("/password")
 public class PasswordController {
 
     private final Logger LOG = LoggerFactory.getLogger(PasswordController.class);
