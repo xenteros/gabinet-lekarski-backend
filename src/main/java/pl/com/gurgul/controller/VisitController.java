@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.com.gurgul.dto.VisitTO;
+import pl.com.gurgul.model.User;
 import pl.com.gurgul.model.Visit;
 import pl.com.gurgul.repository.VisitRepository;
 import pl.com.gurgul.service.VisitService;
 import pl.com.gurgul.utils.LoggedUserUtils;
+import pl.com.gurgul.utils.UserRoles;
 
 import java.util.List;
 
@@ -29,11 +31,17 @@ public class VisitController {
     VisitService visitService;
 
     @ApiOperation(value = "addVisit", nickname = "addVisit")
-    @PreAuthorize("hasAuthority(T(pl.com.gurgul.utils.UserRoles).ROLE_DOCTOR)")
+//    @PreAuthorize("hasAuthority(T(pl.com.gurgul.utils.UserRoles).ROLE_DOCTOR)")
     @RequestMapping(value = "/add", method = POST)
     public Visit newVisit(@RequestBody VisitTO to) {
         LOG.info("Received request to add new visit.");
-        return visitService.createVisit(to);
+        User loggedUser = LoggedUserUtils.getLoggedUser();
+        if (LoggedUserUtils.isDoctor(loggedUser) || loggedUser.getCanRegister()){
+            return visitService.createVisit(to);
+        } else {
+            throw new SecurityException();
+        }
+
     }
 
     @RequestMapping(value = "/update", method = PUT)

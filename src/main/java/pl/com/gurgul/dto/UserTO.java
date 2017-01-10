@@ -112,6 +112,7 @@ public class UserTO {
         this.isDoctor = user.getUserRole().equals(UserRoles.ROLE_DOCTOR);
         this.pesel = user.getPesel();
         this.phoneNumber = user.getPhoneNumber();
+        this.canRegister = user.getCanRegister();
     }
 
     public UserTO() {

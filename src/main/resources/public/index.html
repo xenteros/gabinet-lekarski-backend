@@ -29,8 +29,8 @@
                 <a href="#/visits">Wizyty
                     <span class="badge">{{todayVisits}}</span></a>
             </li>
-            <li ng-show="user.doctor">
-                <a href="#/register">Nowa wizyta</a>
+            <li ng-show="user.canRegister">
+                <a href="#/register">Rejestracja</a>
             </li>
             <li ng-show="user.doctor">
                 <a href="#/newUser">Nowy pacjent</a>

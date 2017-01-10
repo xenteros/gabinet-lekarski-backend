@@ -128,6 +128,12 @@ public class VisitService {
         if (to.getUserUuid() == null) {
             LOG.error("UUID was null.");
             errors.add(new ValidationError("user.uuid", MAY_NOT_BE_NULL));
+        } else {
+            if (!LoggedUserUtils.isDoctor(LoggedUserUtils.getLoggedUser())) {
+                if (!to.getUserUuid().equals(LoggedUserUtils.getLoggedUser().getPesel())) {
+                    throw new SecurityException();
+                }
+            }
         }
         if (to.getCompleted() == null ) {
             LOG.error("Completed was null.");

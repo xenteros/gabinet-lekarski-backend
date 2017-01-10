@@ -21,4 +21,8 @@ public class LoggedUserUtils {
     public static boolean isAdmin(User user) {
         return user != null && user.getUserRole().equals(UserRoles.ROLE_ADMIN);
     }
+    public static boolean isDoctor(User user) {
+        return user != null && user.getUserRole().equals(UserRoles.ROLE_DOCTOR);
+    }
+
 }

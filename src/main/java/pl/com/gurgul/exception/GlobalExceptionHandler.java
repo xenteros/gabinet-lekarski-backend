@@ -22,6 +22,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
     public ResponseEntity<ErrorWrapper> RunTimeException(RuntimeException e) {
+        e.printStackTrace();
         LOG.error("Error: {}", e.getMessage());
         return new ResponseEntity<ErrorWrapper>(new ErrorWrapper(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
@@ -29,6 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ValidationException.class)
     @ResponseBody
     public ResponseEntity<List<ValidationError>> validationExceptionHandle(ValidationException e) {
+        e.printStackTrace();
         return new ResponseEntity<List<ValidationError>>(e.getErrors(), HttpStatus.BAD_REQUEST);
     }
 }

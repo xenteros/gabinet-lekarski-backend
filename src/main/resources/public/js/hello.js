@@ -268,21 +268,32 @@ officaApp.controller('HomeController', function($scope, $http, $rootScope) {
 })
 
 officaApp.controller('RegistrationController', function($scope, $http, $rootScope, $location) {
+    console.log($rootScope.user);
+    $scope.mocker = $rootScope.user.firstName + " " + $rootScope.user.lastName;
     $scope.register = function(params) {
+        if (!$rootScope.user.doctor) {
+            params.userUuid = $rootScope.user.pesel;
+        }
         params.completed = false;
         console.log(params);
         $http
             .post('/api/visit/add', params)
             .success(function(response) {
-                $location.path('/visits');
+                if (!$rootScope.user.doctor) {
+                    $location.path('/myVisits');
+                } else {
+                    $location.path('/visits');
+                }
             })
             .error(function(err) {
                 $scope.success = "Wystąpił niespodziewany błąd";
             })
     }
+    if ($rootScope.user.doctor) {
     $http
         .get('/api/visit/count/today')
         .then(function(response) {
             $rootScope.todayVisits = response.data;
         });
+    }
 })
