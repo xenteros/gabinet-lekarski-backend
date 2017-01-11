@@ -14,8 +14,10 @@ import pl.com.gurgul.model.Visit;
 import pl.com.gurgul.repository.UserRepository;
 import pl.com.gurgul.repository.VisitRepository;
 import pl.com.gurgul.utils.LoggedUserUtils;
+import sun.util.resources.cldr.CalendarData;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static pl.com.gurgul.exception.ErrorMessages.*;
 
@@ -41,6 +43,10 @@ public class VisitService {
     public Visit createVisit (VisitTO to) {
         LOG.info("Trying to create a new visit.");
         validate(to);
+        if (!visitRepository.findByDate(to.getDate()).isEmpty()) {
+            throw new RuntimeException("W tym czasie zaplanowano inną wizytę.");
+        }
+
         LOG.info("Data correct");
         Visit visit = new Visit();
         visit.setDate(to.getDate());
@@ -109,6 +115,22 @@ public class VisitService {
         return visitRepository.findByDoctorUuidAndDateBetween(LoggedUserUtils.getLoggedUser().getUuid(), from, to);
     }
 
+    public List<Visit> findVisitsBetweenIgnoreDoctor(Date from, Date to) {
+        return visitRepository.findByDateBetween(from, to);
+    }
+
+    public List<Date> findDatesBetween(Date from, Date to) {
+        Date date = new Date(from.getTime());
+        List<Date> dates = new ArrayList<>();
+        for (int i = 0; i < 16; i++) {
+            dates.add(date);
+            date = new Date(date.getTime() + 15*60000);
+        }
+        dates.removeAll(findVisitsBetweenIgnoreDoctor(from, to).stream().map(Visit::getDate).collect(Collectors.toList()));
+
+        return dates;
+    }
+
     public List<Visit> findByUuid(String uuid) {
         return visitRepository.findByUserUuid(uuid);
     }
@@ -120,6 +142,13 @@ public class VisitService {
         if (to.getDate() == null) {
             LOG.error("Date was null.");
             errors.add(new ValidationError("date", MAY_NOT_BE_NULL));
+        } else {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(to.getDate());
+            if (cal.get(Calendar.HOUR_OF_DAY) < 15 || cal.get(Calendar.HOUR_OF_DAY) > 18) {
+                errors.add(new ValidationError("date", NOT_ALLOWED));
+            }
+            to.setDate(roundTime(to.getDate()));
         }
         if (to.getId() != null) {
             LOG.error("Id wasn't null.");
@@ -147,5 +176,16 @@ public class VisitService {
         if (!errors.isEmpty()){
             throw new ValidationException(errors);
         }
+     }
+
+     private Date  roundTime(Date date) {
+         Calendar calendar = Calendar.getInstance();
+         calendar.setTime(date);
+         int unroundedMinutes = calendar.get(Calendar.MINUTE);
+         int mod = unroundedMinutes % 15;
+         calendar.add(Calendar.MINUTE, mod < 8 ? -mod : (15-mod));
+         calendar.set(Calendar.SECOND, 0);
+         calendar.set(Calendar.MILLISECOND, 0);
+         return calendar.getTime();
      }
 }

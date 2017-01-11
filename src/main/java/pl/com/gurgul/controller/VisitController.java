@@ -14,6 +14,8 @@ import pl.com.gurgul.service.VisitService;
 import pl.com.gurgul.utils.LoggedUserUtils;
 import pl.com.gurgul.utils.UserRoles;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -76,5 +78,21 @@ public class VisitController {
     public int countToday() {
         LOG.info("Received request for logged doctor's left visits today count.");
         return visitService.countTodays();
+    }
+    @RequestMapping(value = "/dates/{day}", method = GET)
+    public List<Date> findVisitsOn(@PathVariable("day") Long day) {
+        LOG.info("Received request for dates of visits");
+        Date start = new Date(day);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(start);
+        cal.set(Calendar.HOUR_OF_DAY, 15);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        start = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 18);
+        cal.set(Calendar.MINUTE,59);
+        Date end = cal.getTime();
+        return visitService.findDatesBetween(start, end);
     }
 }

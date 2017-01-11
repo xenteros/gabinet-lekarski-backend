@@ -18,4 +18,6 @@ public interface VisitRepository extends CrudRepository<Visit, Long>{
     List<Visit> findByDoctorUuidAndDateBefore(String uuid, Date to);
     List<Visit> findAllByOrderByDateDesc();
     List<Visit> findByDoctorUuidOrderByDateDesc(String uuid);
+    List<Visit> findByDate(Date date);
+
 }

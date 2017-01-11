@@ -1,10 +1,10 @@
 <div class="container">
     <div class="col-md-6">
         <div class="row" ng-show="user.doctor">
-            <h2>Dodaj wizytę</h2>
+            <h2>Dodaj wizytę (15-18:45)</h2>
         </div>
         <div class="row" ng-hide="user.doctor">
-            <h2>Umów się na wizytę</h2>
+            <h2>Umów się na wizytę (15-18:45)</h2>
         </div>
         <div class="row">
             <form>
@@ -26,7 +26,24 @@
         <div class="row">
             {{ success }}
         </div>
-    </div>
+        <h2>Sprawdź dostępność wizyt:</h2>
 
+        <form>
+            <div>
+                <label for="date">Data</label>
+                <input type="date" class="form-control" id="daycheck" ng-model="sprd">
+            </div>
+            <button type="submit" ng-click="spr()" class="btn btn-primary">Sprawdź</button>
+        </form>
+
+        <div class="panel panel-default" ng-repeat="date in dates">
+            <div class="panel-heading">
+                <div class="panel-default">
+                    {{date | date:'yyyy-MM-dd HH:mm'}}
+                </div>
+            </div>
+        </div>
+        {{success2}}
+    </div>
 </div>
 
